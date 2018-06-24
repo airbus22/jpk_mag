@@ -152,10 +152,10 @@ namespace jpk_mag
             int liczbaWZ = 0;
             int liczbaBledow = 0;
 
-            int pierwszeRW = 0;
-            int pierwszePZ = 0;
-            int pierwszeWZ = 0;
-            int pierwszeMM = 0;
+            //int pierwszeRW = 0;
+            //int pierwszePZ = 0;
+            //int pierwszeWZ = 0;
+            //int pierwszeMM = 0;
 
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
             StreamWriter sw = null;
@@ -165,10 +165,10 @@ namespace jpk_mag
             {
                 object[] array = row.ItemArray;
 
-                if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && pierwszeRW == 0)
+                if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczbaRW == 0)
                 {
                     liczbaRW++;
-                    pierwszeRW = 1;
+                    //pierwszeRW = 1;
 
                     sw.Write("      <tns:RW>", FileMode.Append);
                     sw.WriteLine();
@@ -228,7 +228,7 @@ namespace jpk_mag
                     //sw.Write("      </tns:RW>", FileMode.Append);
                 }
 
-                else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")  && pierwszeRW == 1)
+                else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")  && liczbaRW > 0)
                 {
                     liczbaRW++;
                     //pierwszeRW = 1;

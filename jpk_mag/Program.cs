@@ -152,53 +152,72 @@ namespace jpk_mag
             int liczbaWZ = 0;
             int liczbaBledow = 0;
 
-            //int pierwszeRW = 0;
-            //int pierwszePZ = 0;
-            //int pierwszeWZ = 0;
-            //int pierwszeMM = 0;
-
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
             StreamWriter sw = null;
             sw = new StreamWriter(lokalizacjaPlikuXML, true);
             DataTable dt = ds.Tables[0];
 
-            //int iloscRekordowWTabeli = 0;
             //foreach (DataRow row in dt.Rows)
             //{
-            //    iloscRekordowWTabeli++;
-            //    Console.WriteLine(iloscRekordowWTabeli);
+            //    object[] array = row.ItemArray;                
+
+            //    if ((array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")) && liczbaRW == 0)
+            //    {
+            //        liczbaRW++;
+            //        Console.WriteLine("NA POCZĄTKU IF >>> liczbaRW = 0 >>> NA KOŃCU IF wartość zmiennej liczbaRW: " + liczbaRW.ToString());
+            //    }
+
+            //    else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczbaRW > 0)
+            //    {
+            //        liczbaRW++;
+            //        Console.WriteLine("NA POCZĄTKU IF >>> liczbaRW > 0 >>> NA KOŃCU IF wartość zmiennej liczbaRW: " + liczbaRW.ToString());
+            //    }
             //}
-
             //Console.WriteLine("");
             //Console.WriteLine("");
-
-            //Console.WriteLine("Ilość rekordów w tabeli jest: " + iloscRekordowWTabeli);
-
+            //Console.WriteLine("Końcowa wartość dla zmiennej o nazwie 'liczbaRW' jest: " + liczbaRW);
 
             foreach (DataRow row in dt.Rows)
             {
-                object[] array = row.ItemArray;                
+                object[] array = row.ItemArray;
 
-                //if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczbaRW == 0)
                 if ((array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")) && liczbaRW == 0)
                 {
-                    //liczbaRW++;
-                    Console.WriteLine("NA POCZĄTKU IF >>> liczbaRW = 0 >>> NA KOŃCU IF wartość zmiennej liczbaRW: " + liczbaRW.ToString());
+                    liczbaRW++;
+                    sw.Write("      <tns:RW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            <tns:RWWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:RWWartosc>", FileMode.Append);
+                    //sw.WriteLine();
                 }
 
                 else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczbaRW > 0)
                 {
-                    //liczbaRW++;
-                    Console.WriteLine("NA POCZĄTKU IF >>> liczbaRW = 0 >>> NA KOŃCU IF wartość zmiennej liczbaRW: " + liczbaRW.ToString());
+                    liczbaRW++;
+                    sw.Write("            <tns:RWWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:RWWartosc>", FileMode.Append);
+                    //sw.WriteLine();
                 }
-
-                liczbaRW++;
-
                 sw.WriteLine();
             }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Końcowa wartość dla zmiennej o nazwie 'liczbaRW' jest: " + liczbaRW);
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Przycisk ENTER kończy działanie programu...");

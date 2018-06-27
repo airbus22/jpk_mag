@@ -158,7 +158,6 @@ namespace jpk_mag
             int liczabRW_RWCtrl = 0;
             double sumaRW = 0;
             int liczbaBledow = 0;
-
             #region Dla_RW
 
             foreach (DataRow row in dt.Rows)
@@ -293,7 +292,6 @@ namespace jpk_mag
             int liczabPZ_PZWiersz = 0;
             int liczabPZ_PZCtrl = 0;
             double sumaPZ = 0;            
-            
             #region Dla_PZ
             foreach (DataRow row in dt.Rows)
             {
@@ -426,7 +424,6 @@ namespace jpk_mag
             int liczabWZ_WZWiersz = 0;
             int liczabWZ_WZCtrl = 0;
             double sumaWZ = 0;
-
             #region Dla_WZ
 
             foreach (DataRow row in dt.Rows)
@@ -561,7 +558,6 @@ namespace jpk_mag
             int liczabMM_MMWiersz = 0;
             int liczabMM_MMCtrl = 0;
             double sumaMM = 0;
-
             #region Dla_MM
 
             foreach (DataRow row in dt.Rows)

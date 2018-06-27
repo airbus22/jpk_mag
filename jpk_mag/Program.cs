@@ -1,4 +1,6 @@
-﻿using System;
+﻿//kolejność generowania typów sekcja dla poszczególnych rodzajów dokumentów magazynowych: RW, PZ, WZ, MM. 
+
+using System;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -144,22 +146,20 @@ namespace jpk_mag
             finally
             {
                 //Console.WriteLine("Generowanie nagłówka pliku JPK zakończone");
-            }
-
-            int liczbaRW_RWWartosc = 0;
-            int liczabRW_RWWiersz = 0;
-            int liczabRW_RWCtrl = 0;
-            double sumaRW = 0;
-            int liczbaPZ = 0;
-            int liczbaMM = 0;
-            int liczbaWZ = 0;
-            int liczbaBledow = 0;
-            
+            }             
 
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
             StreamWriter sw = null;
             sw = new StreamWriter(lokalizacjaPlikuXML, true);
             DataTable dt = ds.Tables[0];
+
+            int liczbaRW_RWWartosc = 0;
+            int liczabRW_RWWiersz = 0;
+            int liczabRW_RWCtrl = 0;
+            double sumaRW = 0;
+            int liczbaBledow = 0;
+
+            #region Dla_RW
 
             foreach (DataRow row in dt.Rows)
             {
@@ -286,6 +286,414 @@ namespace jpk_mag
             sw.Write("            </tns:RWCtrl>", FileMode.Append);
             sw.Flush();
             sw.WriteLine();
+
+            #endregion Dla_RW
+
+            int liczbaPZ_PZWartosc = 0;
+            int liczabPZ_PZWiersz = 0;
+            int liczabPZ_PZCtrl = 0;
+            double sumaPZ = 0;            
+            
+            #region Dla_PZ
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (liczbaPZ_PZWartosc == 0 && (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ")))
+                {
+                    sw.Write("      <tns:PZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            <tns:PZWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerPZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:PZWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaPZ_PZWartosc++;
+                }
+
+                else if (liczbaPZ_PZWartosc > 0 && (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ")))
+                {
+                    sw.Write("            <tns:PZWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerPZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:PZWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaPZ_PZWartosc++;
+                }
+                sw.WriteLine();
+            }
+
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ"))
+                {
+                    sw.Write("            <tns:PZWiersz>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:Numer2PZ>" + (array[2].ToString()).Substring(3) + "</tns:Numer2PZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:KodTowaruPZ>" + array[3].ToString() + "</tns:KodTowaruPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NazwaTowaruPZ>" + array[4].ToString() + "</tns:NazwaTowaruPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:IloscWydanaPZ>" + array[7].ToString() + "</tns:IloscWydanaPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    if (array[5].ToString() == "")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryPZ>" + "error" + "</tns:JednostkaMiaryPZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else if (array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == "." || array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == ",")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryPZ>" + (array[5].ToString()).Substring(0, (array[5].ToString()).IndexOf(".")).ToUpper() + "</tns:JednostkaMiaryPZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryPZ>" + (array[5].ToString()).ToUpper() + "</tns:JednostkaMiaryPZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    sw.Write("                  <tns:CenaJednPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:CenaJednPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    string WartoscPozycjiPZ_bufor = "" + Double.Parse(array[7].ToString()) * Double.Parse(array[6].ToString()) + "";
+                    sw.Write("                  <tns:WartoscPozycjiPZ>" + WartoscPozycjiPZ_bufor.Replace(",", ".") + "</tns:WartoscPozycjiPZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:PZWiersz>", FileMode.Append);
+                    sw.Flush();
+                    liczabPZ_PZWiersz++;
+                }
+                sw.WriteLine();
+            }
+            string SumaPZ_ciag = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ"))
+                {
+                    SumaPZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                    sumaPZ = sumaPZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+
+                    liczbaPZ_PZWartosc++;
+                }
+
+
+
+                //else if (liczabPZ_PZCtrl > 0 && (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ") || array[2].ToString().Contains("PZ")))
+                //{
+
+                //    sw.Write("            <tns:PZCtrl>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("                  <tns:LiczbaPZ>" + "1" + "</tns:LiczbaPZ>", FileMode.Append);
+                //    sw.WriteLine();
+                //    string SumaPZ_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                //    sw.Write("                  <tns:SumaPZ>" + SumaPZ_bufor.Replace(",", ".") + "</tns:SumaPZ>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("            </tns:PZCtrl>", FileMode.Append);
+                //    sw.Flush();
+                //    liczbaPZ_PZWartosc++;
+                //}
+
+            }
+            sw.Write("            <tns:PZCtrl>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("                  <tns:LiczbaPZ>" + liczabPZ_PZWiersz + "</tns:LiczbaPZ>", FileMode.Append);
+            sw.WriteLine();
+            string SumaPZ_bufor = "" + sumaPZ + "";
+            sw.Write("                  <tns:SumaPZ>" + SumaPZ_bufor.Replace(",", ".") + "</tns:SumaPZ>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("            </tns:PZCtrl>", FileMode.Append);
+            sw.Flush();
+            sw.WriteLine();
+            #endregion Dla_PZ
+
+            int liczbaWZ_WZWartosc = 0;
+            int liczabWZ_WZWiersz = 0;
+            int liczabWZ_WZCtrl = 0;
+            double sumaWZ = 0;
+
+            #region Dla_WZ
+
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (liczbaWZ_WZWartosc == 0 && (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ")))
+                {
+                    sw.Write("      <tns:WZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            <tns:WZWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerWZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscWZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:WZWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaWZ_WZWartosc++;
+                }
+
+                else if (liczbaWZ_WZWartosc > 0 && (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ")))
+                {
+                    sw.Write("            <tns:WZWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerWZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscWZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:WZWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaWZ_WZWartosc++;
+                }
+                sw.WriteLine();
+            }
+
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ"))
+                {
+                    sw.Write("            <tns:WZWiersz>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:Numer2WZ>" + (array[2].ToString()).Substring(3) + "</tns:Numer2WZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:KodTowaruWZ>" + array[3].ToString() + "</tns:KodTowaruWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NazwaTowaruWZ>" + array[4].ToString() + "</tns:NazwaTowaruWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:IloscWydanaWZ>" + array[7].ToString() + "</tns:IloscWydanaWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    if (array[5].ToString() == "")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryWZ>" + "error" + "</tns:JednostkaMiaryWZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else if (array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == "." || array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == ",")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryWZ>" + (array[5].ToString()).Substring(0, (array[5].ToString()).IndexOf(".")).ToUpper() + "</tns:JednostkaMiaryWZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryWZ>" + (array[5].ToString()).ToUpper() + "</tns:JednostkaMiaryWZ>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    sw.Write("                  <tns:CenaJednWZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:CenaJednWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    string WartoscPozycjiWZ_bufor = "" + Double.Parse(array[7].ToString()) * Double.Parse(array[6].ToString()) + "";
+                    sw.Write("                  <tns:WartoscPozycjiWZ>" + WartoscPozycjiWZ_bufor.Replace(",", ".") + "</tns:WartoscPozycjiWZ>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:WZWiersz>", FileMode.Append);
+                    sw.Flush();
+                    liczabWZ_WZWiersz++;
+                }
+                sw.WriteLine();
+            }
+            string SumaWZ_ciag = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ"))
+                {
+                    SumaWZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                    sumaWZ = sumaWZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+
+                    liczbaWZ_WZWartosc++;
+                }
+
+
+
+                //else if (liczabWZ_WZCtrl > 0 && (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ") || array[2].ToString().Contains("WZ")))
+                //{
+
+                //    sw.Write("            <tns:WZCtrl>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("                  <tns:LiczbaWZ>" + "1" + "</tns:LiczbaWZ>", FileMode.Append);
+                //    sw.WriteLine();
+                //    string SumaWZ_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                //    sw.Write("                  <tns:SumaWZ>" + SumaWZ_bufor.Replace(",", ".") + "</tns:SumaWZ>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("            </tns:WZCtrl>", FileMode.Append);
+                //    sw.Flush();
+                //    liczbaWZ_WZWartosc++;
+                //}
+
+            }
+            sw.Write("            <tns:WZCtrl>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("                  <tns:LiczbaWZ>" + liczabWZ_WZWiersz + "</tns:LiczbaWZ>", FileMode.Append);
+            sw.WriteLine();
+            string SumaWZ_bufor = "" + sumaWZ + "";
+            sw.Write("                  <tns:SumaWZ>" + SumaWZ_bufor.Replace(",", ".") + "</tns:SumaWZ>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("            </tns:WZCtrl>", FileMode.Append);
+            sw.Flush();
+            sw.WriteLine();
+
+            #endregion
+
+            int liczbaMM_MMWartosc = 0;
+            int liczabMM_MMWiersz = 0;
+            int liczabMM_MMCtrl = 0;
+            double sumaMM = 0;
+
+            #region Dla_MM
+
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (liczbaMM_MMWartosc == 0 && (array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM")))
+                {
+                    sw.Write("      <tns:MM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            <tns:MMWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerMM>" + (array[2].ToString()).Substring(3) + "</tns:NumerMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscMM>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:MMWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaMM_MMWartosc++;
+                }
+
+                else if (liczbaMM_MMWartosc > 0 && (array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM")))
+                {
+                    sw.Write("            <tns:MMWartosc>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NumerMM>" + (array[2].ToString()).Substring(3) + "</tns:NumerMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:WartoscMM>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:DataWydaniaMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:MMWartosc>", FileMode.Append);
+                    sw.Flush();
+                    liczbaMM_MMWartosc++;
+                }
+                sw.WriteLine();
+            }
+
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM"))
+                {
+                    sw.Write("            <tns:MMWiersz>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:Numer2MM>" + (array[2].ToString()).Substring(3) + "</tns:Numer2MM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:KodTowaruMM>" + array[3].ToString() + "</tns:KodTowaruMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:NazwaTowaruMM>" + array[4].ToString() + "</tns:NazwaTowaruMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("                  <tns:IloscWydanaMM>" + array[7].ToString() + "</tns:IloscWydanaMM>", FileMode.Append);
+                    sw.WriteLine();
+                    if (array[5].ToString() == "")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryMM>" + "error" + "</tns:JednostkaMiaryMM>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else if (array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == "." || array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == ",")
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryMM>" + (array[5].ToString()).Substring(0, (array[5].ToString()).IndexOf(".")).ToUpper() + "</tns:JednostkaMiaryMM>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    else
+                    {
+                        sw.Write("                  <tns:JednostkaMiaryMM>" + (array[5].ToString()).ToUpper() + "</tns:JednostkaMiaryMM>", FileMode.Append);
+                        sw.WriteLine();
+                    }
+                    sw.Write("                  <tns:CenaJednMM>" + (array[6].ToString()).Replace(",", ".") + "</tns:CenaJednMM>", FileMode.Append);
+                    sw.WriteLine();
+                    string WartoscPozycjiMM_bufor = "" + Double.Parse(array[7].ToString()) * Double.Parse(array[6].ToString()) + "";
+                    sw.Write("                  <tns:WartoscPozycjiMM>" + WartoscPozycjiMM_bufor.Replace(",", ".") + "</tns:WartoscPozycjiMM>", FileMode.Append);
+                    sw.WriteLine();
+                    sw.Write("            </tns:MMWiersz>", FileMode.Append);
+                    sw.Flush();
+                    liczabMM_MMWiersz++;
+                }
+                sw.WriteLine();
+            }
+            string SumaMM_ciag = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                if (array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM"))
+                {
+                    SumaMM_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                    sumaMM = sumaMM + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+
+                    liczbaMM_MMWartosc++;
+                }
+
+
+
+                //else if (liczabMM_MMCtrl > 0 && (array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM") || array[2].ToString().Contains("MM")))
+                //{
+
+                //    sw.Write("            <tns:MMCtrl>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("                  <tns:LiczbaMM>" + "1" + "</tns:LiczbaMM>", FileMode.Append);
+                //    sw.WriteLine();
+                //    string SumaMM_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                //    sw.Write("                  <tns:SumaMM>" + SumaMM_bufor.Replace(",", ".") + "</tns:SumaMM>", FileMode.Append);
+                //    sw.WriteLine();
+                //    sw.Write("            </tns:MMCtrl>", FileMode.Append);
+                //    sw.Flush();
+                //    liczbaMM_MMWartosc++;
+                //}
+
+            }
+            sw.Write("            <tns:MMCtrl>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("                  <tns:LiczbaMM>" + liczabMM_MMWiersz + "</tns:LiczbaMM>", FileMode.Append);
+            sw.WriteLine();
+            string SumaMM_bufor = "" + sumaMM + "";
+            sw.Write("                  <tns:SumaMM>" + SumaMM_bufor.Replace(",", ".") + "</tns:SumaMM>", FileMode.Append);
+            sw.WriteLine();
+            sw.Write("            </tns:MMCtrl>", FileMode.Append);
+            sw.Flush();
+            sw.WriteLine();
+
+
+
+            #endregion
+
 
             Console.WriteLine("");
             Console.WriteLine("");

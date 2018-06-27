@@ -182,9 +182,9 @@ namespace jpk_mag
             {
                 object[] array = row.ItemArray;
 
-                if ((array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")) && liczbaRW_RWWartosc == 0)
+                if (liczbaRW_RWWartosc == 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
                 {
-                    liczbaRW_RWWartosc++;
+                    
                     sw.Write("      <tns:RW>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("            <tns:RWWartosc>", FileMode.Append);
@@ -198,12 +198,14 @@ namespace jpk_mag
                     sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("            </tns:RWWartosc>", FileMode.Append);
-                    //sw.WriteLine();
+                    sw.WriteLine();
+                    sw.Flush();
+                    liczbaRW_RWWartosc++;
                 }
 
-                else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczbaRW_RWWartosc > 0)
+                else if (liczbaRW_RWWartosc > 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
                 {
-                    liczbaRW_RWWartosc++;
+                    
                     sw.Write("            <tns:RWWartosc>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
@@ -215,9 +217,10 @@ namespace jpk_mag
                     sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("            </tns:RWWartosc>", FileMode.Append);
-                    //sw.WriteLine();
+                    sw.WriteLine();
+                    sw.Flush();
+                    liczbaRW_RWWartosc++;
                 }
-                sw.WriteLine();
             }
 
             foreach (DataRow row in dt.Rows)
@@ -225,8 +228,7 @@ namespace jpk_mag
                 object[] array = row.ItemArray;
 
                 if ((array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")) && liczabRW_RWWiersz == 0)
-                {
-                    liczabRW_RWWiersz++;
+                {                    
                     sw.Write("            <tns:RWWiersz>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("                  <tns:Numer2RW>" + (array[2].ToString()).Substring(3) + "</tns:Numer2RW>", FileMode.Append);
@@ -258,6 +260,8 @@ namespace jpk_mag
                     sw.Write("                  <tns:WartoscPozycjiRW>" + WartoscPozycjiRW_bufor.Replace(",", ".") + "</tns:WartoscPozycjiRW>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("            </tns:RWWiersz>", FileMode.Append);
+                    sw.Flush();
+                    liczabRW_RWWiersz++;
                 }
 
                 else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw") && liczabRW_RWWiersz > 0)
@@ -294,6 +298,8 @@ namespace jpk_mag
                     sw.Write("                  <tns:WartoscPozycjiRW>" + WartoscPozycjiRW_bufor.Replace(",", ".") + "</tns:WartoscPozycjiRW>", FileMode.Append);
                     sw.WriteLine();
                     sw.Write("            </tns:RWWiersz>", FileMode.Append);
+                    sw.Flush();
+                    liczabRW_RWWiersz++;
                 }
                 sw.WriteLine();
             }

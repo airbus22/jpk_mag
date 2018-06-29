@@ -1,6 +1,4 @@
-﻿//kolejność generowania typów sekcja dla poszczególnych rodzajów dokumentów magazynowych: PZ, RW, WZ, MM. 
-
-using System;
+﻿using System;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
@@ -134,7 +132,6 @@ namespace jpk_mag
                 plikXML.WriteLine(XML_linia30);
                 plikXML.WriteLine(XML_linia31);
                 plikXML.Close();
-
                 Console.WriteLine("Generowanie nagłówka pliku JPK zakończone");
             }
 
@@ -185,7 +182,6 @@ namespace jpk_mag
             Console.WriteLine("");
             Console.Write("Podsumowanie ilości dokumentów w wynikowym pliku JPK: PZ = " + zliczaniePZ + ", RW = " + zliczanieRW + ", WZ = " + zliczanieWZ + ", MM = " + zliczanieMM);
             #endregion
-
 
             #region Dla_PZ
             int liczbaPZ_PZWartosc = 0;
@@ -302,9 +298,7 @@ namespace jpk_mag
                 sw.Flush();
                 sw.WriteLine();
             }
-
-            #endregion Dla_PZ            
-
+            #endregion Dla_PZ
 
             #region Dla_RW
             int liczbaRW_RWWartosc = 0;
@@ -350,7 +344,7 @@ namespace jpk_mag
                         sw.Write("            </tns:RWWartosc>", FileMode.Append);
                         sw.Flush();
                         liczbaRW_RWWartosc++;
-                    }                    
+                    }
                     sw.WriteLine();
                 }
 
@@ -405,7 +399,6 @@ namespace jpk_mag
                     {
                         SumaRW_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
                         sumaRW = sumaRW + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
-
                         liczbaRW_RWWartosc++;
                     }
                 }
@@ -422,9 +415,7 @@ namespace jpk_mag
                 sw.Flush();
                 sw.WriteLine();
             }
-
             #endregion Dla_RW
-
 
             #region Dla_WZ
             int liczbaWZ_WZWartosc = 0;
@@ -525,7 +516,6 @@ namespace jpk_mag
                     {
                         SumaWZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
                         sumaWZ = sumaWZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
-
                         liczbaWZ_WZWartosc++;
                     }
                 }
@@ -542,9 +532,7 @@ namespace jpk_mag
                 sw.Flush();
                 sw.WriteLine();
             }
-
             #endregion
-
 
             #region Dla_MM
             int liczbaMM_MMWartosc = 0;
@@ -653,7 +641,6 @@ namespace jpk_mag
                     {
                         SumaMM_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
                         sumaMM = sumaMM + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
-
                         liczbaMM_MMWartosc++;
                     }
                 }
@@ -670,7 +657,6 @@ namespace jpk_mag
                 sw.Flush();
                 sw.WriteLine();
             }
-
             #endregion
 
             sw.Write("</tns:JPK>", FileMode.Append);

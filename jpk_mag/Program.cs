@@ -182,14 +182,14 @@ namespace jpk_mag
                     zliczanieWZ++;
                 }
             }
-            //Console.Write("Podsumowanie ilości dokumentów: PZ = " + zliczaniePZ + ", RW = " + zliczanieRW + ", WZ = " + zliczanieWZ + ", MM = " + zliczanieMM);
+            Console.WriteLine("");
+            Console.Write("Podsumowanie ilości dokumentów w wynikowym pliku JPK: PZ = " + zliczaniePZ + ", RW = " + zliczanieRW + ", WZ = " + zliczanieWZ + ", MM = " + zliczanieMM);
             #endregion
 
 
             #region Dla_PZ
             int liczbaPZ_PZWartosc = 0;
             int liczbaPZ_PZWiersz = 0;
-            //int liczbaPZ_PZCtrl = 0;
             double sumaPZ = 0;
             if (zliczaniePZ > 0)
             {
@@ -286,27 +286,8 @@ namespace jpk_mag
                     {
                         SumaPZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
                         sumaPZ = sumaPZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
-
                         liczbaPZ_PZWartosc++;
                     }
-
-
-
-                    //else if (liczbaPZ_PZCtrl > 0 && (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("Pz") || array[2].ToString().Contains("pZ") || array[2].ToString().Contains("pz")))
-                    //{
-
-                    //    sw.Write("            <tns:PZCtrl>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("                  <tns:LiczbaPZ>" + "1" + "</tns:LiczbaPZ>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    string SumaPZ_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                    //    sw.Write("                  <tns:SumaPZ>" + SumaPZ_bufor.Replace(",", ".") + "</tns:SumaPZ>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("            </tns:PZCtrl>", FileMode.Append);
-                    //    sw.Flush();
-                    //    liczbaPZ_PZWartosc++;
-                    //}
-
                 }
                 sw.Write("            <tns:PZCtrl>", FileMode.Append);
                 sw.WriteLine();
@@ -328,7 +309,6 @@ namespace jpk_mag
             #region Dla_RW
             int liczbaRW_RWWartosc = 0;
             int liczbaRW_RWWiersz = 0;
-            //int liczbaRW_RWCtrl = 0;
             double sumaRW = 0;
             if (zliczanieRW > 0)
             {
@@ -428,24 +408,6 @@ namespace jpk_mag
 
                         liczbaRW_RWWartosc++;
                     }
-
-
-
-                    //else if (liczbaRW_RWCtrl > 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
-                    //{
-
-                    //    sw.Write("            <tns:RWCtrl>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("                  <tns:LiczbaRW>" + "1" + "</tns:LiczbaRW>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    string SumaRW_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                    //    sw.Write("                  <tns:SumaRW>" + SumaRW_bufor.Replace(",", ".") + "</tns:SumaRW>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("            </tns:RWCtrl>", FileMode.Append);
-                    //    sw.Flush();
-                    //    liczbaRW_RWWartosc++;
-                    //}
-
                 }
                 sw.Write("            <tns:RWCtrl>", FileMode.Append);
                 sw.WriteLine();
@@ -467,7 +429,6 @@ namespace jpk_mag
             #region Dla_WZ
             int liczbaWZ_WZWartosc = 0;
             int liczbaWZ_WZWiersz = 0;
-            //int liczbaWZ_WZCtrl = 0;
             double sumaWZ = 0;
             if (zliczanieWZ > 0)
             {
@@ -567,24 +528,6 @@ namespace jpk_mag
 
                         liczbaWZ_WZWartosc++;
                     }
-
-
-
-                    //else if (liczbaWZ_WZCtrl > 0 && (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("Wz") || array[2].ToString().Contains("wZ") || array[2].ToString().Contains("wz")))
-                    //{
-
-                    //    sw.Write("            <tns:WZCtrl>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("                  <tns:LiczbaWZ>" + "1" + "</tns:LiczbaWZ>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    string SumaWZ_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                    //    sw.Write("                  <tns:SumaWZ>" + SumaWZ_bufor.Replace(",", ".") + "</tns:SumaWZ>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("            </tns:WZCtrl>", FileMode.Append);
-                    //    sw.Flush();
-                    //    liczbaWZ_WZWartosc++;
-                    //}
-
                 }
                 sw.Write("            <tns:WZCtrl>", FileMode.Append);
                 sw.WriteLine();
@@ -606,7 +549,6 @@ namespace jpk_mag
             #region Dla_MM
             int liczbaMM_MMWartosc = 0;
             int liczbaMM_MMWiersz = 0;
-            //int liczbaMM_MMCtrl = 0;
             double sumaMM = 0;
             if (zliczanieMM > 0)
             {
@@ -714,24 +656,6 @@ namespace jpk_mag
 
                         liczbaMM_MMWartosc++;
                     }
-
-
-
-                    //else if (liczbaMM_MMCtrl > 0 && (array[2].ToString().Contains("MM") || array[2].ToString().Contains("Mm") || array[2].ToString().Contains("mM") || array[2].ToString().Contains("mm")))
-                    //{
-
-                    //    sw.Write("            <tns:MMCtrl>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("                  <tns:LiczbaMM>" + "1" + "</tns:LiczbaMM>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    string SumaMM_bufor = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                    //    sw.Write("                  <tns:SumaMM>" + SumaMM_bufor.Replace(",", ".") + "</tns:SumaMM>", FileMode.Append);
-                    //    sw.WriteLine();
-                    //    sw.Write("            </tns:MMCtrl>", FileMode.Append);
-                    //    sw.Flush();
-                    //    liczbaMM_MMWartosc++;
-                    //}
-
                 }
                 sw.Write("            <tns:MMCtrl>", FileMode.Append);
                 sw.WriteLine();

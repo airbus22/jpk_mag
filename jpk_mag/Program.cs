@@ -316,6 +316,8 @@ namespace jpk_mag
                 sw.Write("                  <tns:SumaPZ>" + SumaPZ_bufor.Replace(",", ".") + "</tns:SumaPZ>", FileMode.Append);
                 sw.WriteLine();
                 sw.Write("            </tns:PZCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("      </tns:PZ>", FileMode.Append);
                 sw.Flush();
                 sw.WriteLine();
             }
@@ -368,7 +370,7 @@ namespace jpk_mag
                         sw.Write("            </tns:RWWartosc>", FileMode.Append);
                         sw.Flush();
                         liczbaRW_RWWartosc++;
-                    }
+                    }                    
                     sw.WriteLine();
                 }
 
@@ -453,6 +455,8 @@ namespace jpk_mag
                 sw.Write("                  <tns:SumaRW>" + SumaRW_bufor.Replace(",", ".") + "</tns:SumaRW>", FileMode.Append);
                 sw.WriteLine();
                 sw.Write("            </tns:RWCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("      </tns:RW>", FileMode.Append);
                 sw.Flush();
                 sw.WriteLine();
             }
@@ -590,6 +594,8 @@ namespace jpk_mag
                 sw.Write("                  <tns:SumaWZ>" + SumaWZ_bufor.Replace(",", ".") + "</tns:SumaWZ>", FileMode.Append);
                 sw.WriteLine();
                 sw.Write("            </tns:WZCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("      </tns:WZ>", FileMode.Append);
                 sw.Flush();
                 sw.WriteLine();
             }
@@ -735,12 +741,16 @@ namespace jpk_mag
                 sw.Write("                  <tns:SumaMM>" + SumaMM_bufor.Replace(",", ".") + "</tns:SumaMM>", FileMode.Append);
                 sw.WriteLine();
                 sw.Write("            </tns:MMCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("      </tns:MM>", FileMode.Append);
                 sw.Flush();
                 sw.WriteLine();
             }
 
             #endregion
 
+            sw.Write("</tns:JPK>", FileMode.Append);
+            sw.Close();
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Przycisk ENTER kończy działanie programu...");

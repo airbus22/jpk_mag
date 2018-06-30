@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace jpk_mag
 {
@@ -143,7 +144,7 @@ namespace jpk_mag
             finally
             {
                 //Console.WriteLine("Generowanie nagłówka pliku JPK zakończone");
-            }             
+            }
 
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
             StreamWriter sw = null;
@@ -665,6 +666,36 @@ namespace jpk_mag
             Console.WriteLine("");
             Console.WriteLine("Przycisk ENTER kończy działanie programu...");
             Console.ReadLine();
+
+            //Kasowanie pustych linii
+            var plik_tymczasowy = Path.GetTempFileName();
+            string wynik_usuwanie_linii = @"C:\TEMP\jpk_mag_tmp.xml";
+            try
+            {
+                using (var streamReader = new StreamReader(lokalizacjaPlikuXML))
+                using (var streamWriter = new StreamWriter(wynik_usuwanie_linii))
+                {
+                    string line;
+                    while ((line = streamReader.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(line))
+                        {
+                            //string wyniki = RemoveEmptyLines(line);
+                            //streamWriter.WriteLine(wyniki);
+                            streamWriter.WriteLine(line);
+                        }
+                    }
+                }
+                File.Copy(lokalizacjaPlikuXML, wynik_usuwanie_linii, true);
+            }
+            finally
+            {
+                //File.Delete(wynik_usuwanie_linii);
+            }
+        }
+        public string RemoveEmptyLines(string lines)
+        {
+            return Regex.Replace(lines, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
         }
     }
 }

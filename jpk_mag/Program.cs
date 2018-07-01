@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
-//using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace jpk_mag
 {
@@ -667,11 +667,11 @@ namespace jpk_mag
             Console.WriteLine("Przycisk ENTER kończy działanie programu...");
             Console.ReadLine();
 
-            System.IO.StreamReader streamReader = new System.IO.StreamReader(lokalizacjaPlikuXML);
+            StreamReader streamReader = new StreamReader(lokalizacjaPlikuXML);
             string fileContents = streamReader.ReadToEnd();
             streamReader.Close();
-            fileContents = System.Text.RegularExpressions.Regex.Replace(fileContents, @"^\s*$\n|\r", "", System.Text.RegularExpressions.RegexOptions.Multiline);
-            System.IO.StreamWriter streamWriter = new System.IO.StreamWriter(lokalizacjaPlikuXML);
+            fileContents = Regex.Replace(fileContents, @"^\s*$\n|\r", "", RegexOptions.Multiline);
+            StreamWriter streamWriter = new StreamWriter(lokalizacjaPlikuXML);
             streamWriter.Write(fileContents);
             streamWriter.Close();
         }

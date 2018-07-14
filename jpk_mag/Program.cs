@@ -71,7 +71,7 @@ namespace jpk_mag
             string XML_linia10 = "            <etd:DomyslnyKodWaluty>PLN</etd:DomyslnyKodWaluty>";
             string XML_linia11 = "            <etd:KodUrzedu>1449</etd:KodUrzedu>";
             string XML_linia12 = "      </tns:Naglowek>";
-            string XML_linia13 = "      <Podmiot1>";
+            string XML_linia13 = "      <tns:Podmiot1>";
             string XML_linia14 = "            <IdentyfikatorPodmiotu>";
             string XML_linia15 = "                  <etd:NIP>5250006124</etd:NIP>";
             string XML_linia16 = "                  <etd:PelnaNazwa>KRAJOWA SZKOŁA ADMINISTRACJI PUBLICZNEJ im.Prezydenta Rzeczypospolitej Polskiej Lecha Kaczyńskiego</etd:PelnaNazwa>";
@@ -88,8 +88,8 @@ namespace jpk_mag
             string XML_linia27 = "                  <tns:KodPocztowy>00-922</tns:KodPocztowy>";
             string XML_linia28 = "                  <tns:Poczta>WARSZAWA</tns:Poczta>";
             string XML_linia29 = "            </AdresPodmiotu>";
-            string XML_linia30 = "      </Podmiot1>";
-            string XML_linia31 = "      <Magazyn>1</Magazyn>";
+            string XML_linia30 = "      </tns:Podmiot1>";
+            string XML_linia31 = "      <tns:Magazyn>1</tns:Magazyn>";
 
             if (File.Exists(lokalizacjaPlikuXML))
             {
@@ -160,28 +160,28 @@ namespace jpk_mag
             {
                 object[] array = row.ItemArray;
 
-                if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
-                {
-                    zliczanieRW++;
-                }
-
-                else if (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("Pz") || array[2].ToString().Contains("pZ") || array[2].ToString().Contains("pz"))
+                if (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("Pz") || array[2].ToString().Contains("pZ") || array[2].ToString().Contains("pz"))
                 {
                     zliczaniePZ++;
-                }
-
-                else if (array[2].ToString().Contains("MM") || array[2].ToString().Contains("Mm") || array[2].ToString().Contains("mM") || array[2].ToString().Contains("mm"))
-                {
-                    zliczanieMM++;
                 }
 
                 else if (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("Wz") || array[2].ToString().Contains("wZ") || array[2].ToString().Contains("wz"))
                 {
                     zliczanieWZ++;
                 }
+
+                else if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
+                {
+                    zliczanieRW++;
+                }
+
+                else if (array[2].ToString().Contains("MM") || array[2].ToString().Contains("Mm") || array[2].ToString().Contains("mM") || array[2].ToString().Contains("mm"))
+                {
+                    zliczanieMM++;
+                }
             }
             Console.WriteLine("");
-            Console.Write("Podsumowanie ilości dokumentów w wynikowym pliku JPK: PZ = " + zliczaniePZ + ", RW = " + zliczanieRW + ", WZ = " + zliczanieWZ + ", MM = " + zliczanieMM);
+            Console.Write("Podsumowanie ilości dokumentów w wynikowym pliku JPK: PZ = " + zliczaniePZ + ", WZ = " + zliczanieWZ + ", RW = " + zliczanieRW + ", MM = " + zliczanieMM);
             #endregion
 
             #region Dla_PZ
@@ -301,123 +301,6 @@ namespace jpk_mag
             }
             #endregion Dla_PZ
 
-            #region Dla_RW
-            int liczbaRW_RWWartosc = 0;
-            int liczbaRW_RWWiersz = 0;
-            double sumaRW = 0;
-            if (zliczanieRW > 0)
-            {
-                foreach (DataRow row in dt.Rows)
-                {
-                    object[] array = row.ItemArray;
-
-                    if (liczbaRW_RWWartosc == 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
-                    {
-                        sw.Write("      <tns:RW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("            <tns:RWWartosc>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("            </tns:RWWartosc>", FileMode.Append);
-                        sw.Flush();
-                        liczbaRW_RWWartosc++;
-                    }
-
-                    else if (liczbaRW_RWWartosc > 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
-                    {
-                        sw.Write("            <tns:RWWartosc>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("            </tns:RWWartosc>", FileMode.Append);
-                        sw.Flush();
-                        liczbaRW_RWWartosc++;
-                    }
-                    sw.WriteLine();
-                }
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    object[] array = row.ItemArray;
-
-                    if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
-                    {
-                        sw.Write("            <tns:RWWiersz>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:Numer2RW>" + (array[2].ToString()).Substring(3) + "</tns:Numer2RW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:KodTowaruRW>" + array[3].ToString() + "</tns:KodTowaruRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:NazwaTowaruRW>" + array[4].ToString() + "</tns:NazwaTowaruRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("                  <tns:IloscWydanaRW>" + array[7].ToString() + "</tns:IloscWydanaRW>", FileMode.Append);
-                        sw.WriteLine();
-                        if (array[5].ToString() == "")
-                        {
-                            sw.Write("                  <tns:JednostkaMiaryRW>" + "error" + "</tns:JednostkaMiaryRW>", FileMode.Append);
-                            sw.WriteLine();
-                        }
-                        else if (array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == "." || array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == ",")
-                        {
-                            sw.Write("                  <tns:JednostkaMiaryRW>" + (array[5].ToString()).Substring(0, (array[5].ToString()).IndexOf(".")).ToUpper() + "</tns:JednostkaMiaryRW>", FileMode.Append);
-                            sw.WriteLine();
-                        }
-                        else
-                        {
-                            sw.Write("                  <tns:JednostkaMiaryRW>" + (array[5].ToString()).ToUpper() + "</tns:JednostkaMiaryRW>", FileMode.Append);
-                            sw.WriteLine();
-                        }
-                        sw.Write("                  <tns:CenaJednRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:CenaJednRW>", FileMode.Append);
-                        sw.WriteLine();
-                        string WartoscPozycjiRW_bufor = "" + Double.Parse(array[7].ToString()) * Double.Parse(array[6].ToString()) + "";
-                        sw.Write("                  <tns:WartoscPozycjiRW>" + WartoscPozycjiRW_bufor.Replace(",", ".") + "</tns:WartoscPozycjiRW>", FileMode.Append);
-                        sw.WriteLine();
-                        sw.Write("            </tns:RWWiersz>", FileMode.Append);
-                        sw.Flush();
-                        liczbaRW_RWWiersz++;
-                    }
-                    sw.WriteLine();
-                }
-                string SumaRW_ciag = "";
-                foreach (DataRow row in dt.Rows)
-                {
-                    object[] array = row.ItemArray;
-
-                    if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
-                    {
-                        SumaRW_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                        sumaRW = sumaRW + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
-                        liczbaRW_RWWartosc++;
-                    }
-                }
-                sw.Write("            <tns:RWCtrl>", FileMode.Append);
-                sw.WriteLine();
-                sw.Write("                  <tns:LiczbaRW>" + liczbaRW_RWWiersz + "</tns:LiczbaRW>", FileMode.Append);
-                sw.WriteLine();
-                string SumaRW_bufor = "" + sumaRW + "";
-                sw.Write("                  <tns:SumaRW>" + SumaRW_bufor.Replace(",", ".") + "</tns:SumaRW>", FileMode.Append);
-                sw.WriteLine();
-                sw.Write("            </tns:RWCtrl>", FileMode.Append);
-                sw.WriteLine();
-                sw.Write("      </tns:RW>", FileMode.Append);
-                sw.Flush();
-                sw.WriteLine();
-            }
-            #endregion Dla_RW
-
             #region Dla_WZ
             int liczbaWZ_WZWartosc = 0;
             int liczbaWZ_WZWiersz = 0;
@@ -534,6 +417,123 @@ namespace jpk_mag
                 sw.WriteLine();
             }
             #endregion
+
+            #region Dla_RW
+            int liczbaRW_RWWartosc = 0;
+            int liczbaRW_RWWiersz = 0;
+            double sumaRW = 0;
+            if (zliczanieRW > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    object[] array = row.ItemArray;
+
+                    if (liczbaRW_RWWartosc == 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
+                    {
+                        sw.Write("      <tns:RW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("            <tns:RWWartosc>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("            </tns:RWWartosc>", FileMode.Append);
+                        sw.Flush();
+                        liczbaRW_RWWartosc++;
+                    }
+
+                    else if (liczbaRW_RWWartosc > 0 && (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw")))
+                    {
+                        sw.Write("            <tns:RWWartosc>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("            </tns:RWWartosc>", FileMode.Append);
+                        sw.Flush();
+                        liczbaRW_RWWartosc++;
+                    }
+                    sw.WriteLine();
+                }
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    object[] array = row.ItemArray;
+
+                    if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
+                    {
+                        sw.Write("            <tns:RWWiersz>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:Numer2RW>" + (array[2].ToString()).Substring(3) + "</tns:Numer2RW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:KodTowaruRW>" + array[3].ToString() + "</tns:KodTowaruRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:NazwaTowaruRW>" + array[4].ToString() + "</tns:NazwaTowaruRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:IloscWydanaRW>" + array[7].ToString() + "</tns:IloscWydanaRW>", FileMode.Append);
+                        sw.WriteLine();
+                        if (array[5].ToString() == "")
+                        {
+                            sw.Write("                  <tns:JednostkaMiaryRW>" + "error" + "</tns:JednostkaMiaryRW>", FileMode.Append);
+                            sw.WriteLine();
+                        }
+                        else if (array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == "." || array[5].ToString().Substring(array[5].ToString().Length - 1, 1).ToString() == ",")
+                        {
+                            sw.Write("                  <tns:JednostkaMiaryRW>" + (array[5].ToString()).Substring(0, (array[5].ToString()).IndexOf(".")).ToUpper() + "</tns:JednostkaMiaryRW>", FileMode.Append);
+                            sw.WriteLine();
+                        }
+                        else
+                        {
+                            sw.Write("                  <tns:JednostkaMiaryRW>" + (array[5].ToString()).ToUpper() + "</tns:JednostkaMiaryRW>", FileMode.Append);
+                            sw.WriteLine();
+                        }
+                        sw.Write("                  <tns:CenaJednRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:CenaJednRW>", FileMode.Append);
+                        sw.WriteLine();
+                        string WartoscPozycjiRW_bufor = "" + Double.Parse(array[7].ToString()) * Double.Parse(array[6].ToString()) + "";
+                        sw.Write("                  <tns:WartoscPozycjiRW>" + WartoscPozycjiRW_bufor.Replace(",", ".") + "</tns:WartoscPozycjiRW>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("            </tns:RWWiersz>", FileMode.Append);
+                        sw.Flush();
+                        liczbaRW_RWWiersz++;
+                    }
+                    sw.WriteLine();
+                }
+                string SumaRW_ciag = "";
+                foreach (DataRow row in dt.Rows)
+                {
+                    object[] array = row.ItemArray;
+
+                    if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
+                    {
+                        SumaRW_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
+                        sumaRW = sumaRW + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+                        liczbaRW_RWWartosc++;
+                    }
+                }
+                sw.Write("            <tns:RWCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("                  <tns:LiczbaRW>" + liczbaRW_RWWiersz + "</tns:LiczbaRW>", FileMode.Append);
+                sw.WriteLine();
+                string SumaRW_bufor = "" + sumaRW + "";
+                sw.Write("                  <tns:SumaRW>" + SumaRW_bufor.Replace(",", ".") + "</tns:SumaRW>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("            </tns:RWCtrl>", FileMode.Append);
+                sw.WriteLine();
+                sw.Write("      </tns:RW>", FileMode.Append);
+                sw.Flush();
+                sw.WriteLine();
+            }
+            #endregion Dla_RW
 
             #region Dla_MM
             int liczbaMM_MMWartosc = 0;

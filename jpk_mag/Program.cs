@@ -208,6 +208,8 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:DataOtrzymaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
                         sw.WriteLine();
+                        sw.Write("                  <tns:Dostawca>none</tns:Dostawca>", FileMode.Append);
+                        sw.WriteLine();
                         sw.Write("            </tns:PZWartosc>", FileMode.Append);
                         sw.Flush();
                         liczbaPZ_PZWartosc++;
@@ -224,6 +226,8 @@ namespace jpk_mag
                         sw.Write("                  <tns:WartoscPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscPZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:DataOtrzymaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
+                        sw.WriteLine();
+                        sw.Write("                  <tns:Dostawca>none</tns:Dostawca>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("            </tns:PZWartosc>", FileMode.Append);
                         sw.Flush();

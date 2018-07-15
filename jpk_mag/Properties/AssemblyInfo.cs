@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // Ogólne informacje o zestawie są kontrolowane poprzez następujący 
 // zestaw atrybutów. Zmień wartości tych atrybutów, aby zmodyfikować informacje
 // powiązane z zestawem.
-[assembly: AssemblyTitle("jpk_mag")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Generator jednolitego pliku kontrolnego dla magazynu KSAP")]
+[assembly: AssemblyDescription("autor: Grzegorz Brodowski (gb@ksap.gov.pl)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("KSAP")]
 [assembly: AssemblyProduct("jpk_mag")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Możesz określić wszystkie wartości lub użyć domyślnych numerów kompilacji i poprawki
 // przy użyciu symbolu „*”, tak jak pokazano poniżej:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.0")]
-[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: AssemblyVersion("3.1.0.25")]
+[assembly: AssemblyFileVersion("3.1.0.25")]

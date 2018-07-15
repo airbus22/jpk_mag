@@ -11,12 +11,11 @@ namespace jpk_mag
     {
         public static string formatowanieDaty(string dawnaData)
         {
-            var dataPrzed = dawnaData;
-            var dataManipulacje = new StringBuilder(dataPrzed);
+            var data = dawnaData;
+            var dataManipulacje = new StringBuilder(data);
             dataManipulacje.Replace(".", "-", 0, 10);
-            dataPrzed = dataManipulacje.ToString();
-            var dataPo = dataPrzed;
-            return dataPo;
+            data = dataManipulacje.ToString();
+            return data;
         }
 
         static void Main(string[] args)
@@ -76,29 +75,29 @@ namespace jpk_mag
             string XML_linia4 = "            <tns:KodFormularza kodSystemowy=\"JPK_MAG (1)\" wersjaSchemy =\"1-0\">JPK_MAG</tns:KodFormularza>";
             string XML_linia5 = "            <tns:WariantFormularza>1</tns:WariantFormularza>";
             string XML_linia6 = "            <tns:CelZlozenia>1</tns:CelZlozenia>";
-            string XML_linia7 = "            <etd:DataWytworzeniaJPK>" + formatowanieDaty(DateTime.Now.ToString().Substring(0, 10)) + "T" + DateTime.Now.ToString().Substring(11) + "</etd:DataWytworzeniaJPK>";
-            string XML_linia8 = "            <etd:DataOd>" + DP1 + "</etd:DataOd>";
-            string XML_linia9 = "            <etd:DataDo>" + DK1 + "</etd:DataDo>";
-            string XML_linia10 = "            <etd:DomyslnyKodWaluty>PLN</etd:DomyslnyKodWaluty>";
-            string XML_linia11 = "            <etd:KodUrzedu>1449</etd:KodUrzedu>";
+            string XML_linia7 = "            <tns:DataWytworzeniaJPK>" + formatowanieDaty(DateTime.Now.ToString().Substring(0, 10)) + "T" + DateTime.Now.ToString().Substring(11) + "</tns:DataWytworzeniaJPK>";
+            string XML_linia8 = "            <tns:DataOd>" + DP1 + "</tns:DataOd>";
+            string XML_linia9 = "            <tns:DataDo>" + DK1 + "</tns:DataDo>";
+            string XML_linia10 = "            <tns:DomyslnyKodWaluty>PLN</tns:DomyslnyKodWaluty>";
+            string XML_linia11 = "            <tns:KodUrzedu>1449</tns:KodUrzedu>";
             string XML_linia12 = "      </tns:Naglowek>";
             string XML_linia13 = "      <tns:Podmiot1>";
-            string XML_linia14 = "            <IdentyfikatorPodmiotu>";
+            string XML_linia14 = "            <tns:IdentyfikatorPodmiotu>";
             string XML_linia15 = "                  <etd:NIP>5250006124</etd:NIP>";
             string XML_linia16 = "                  <etd:PelnaNazwa>KRAJOWA SZKOŁA ADMINISTRACJI PUBLICZNEJ im.Prezydenta Rzeczypospolitej Polskiej Lecha Kaczyńskiego</etd:PelnaNazwa>";
             string XML_linia17 = "                  <etd:REGON>006472421</etd:REGON>";
-            string XML_linia18 = "            </IdentyfikatorPodmiotu>";
-            string XML_linia19 = "            <AdresPodmiotu>";
-            string XML_linia20 = "                  <tns:KodKraju>PL</tns:KodKraju>";
-            string XML_linia21 = "                  <tns:Wojewodztwo>mazowieckie</tns:Wojewodztwo>";
-            string XML_linia22 = "                  <tns:Powiat>WARSZAWSKI</tns:Powiat>";
-            string XML_linia23 = "                  <tns:Gmina>CENTRUM</tns:Gmina>";
-            string XML_linia24 = "                  <tns:Ulica>WAWELSKA</tns:Ulica>";
-            string XML_linia25 = "                  <tns:NrDomu>56</tns:NrDomu>";
-            string XML_linia26 = "                  <tns:Miejscowosc>WARSZAWA</tns:Miejscowosc>";
-            string XML_linia27 = "                  <tns:KodPocztowy>00-922</tns:KodPocztowy>";
-            string XML_linia28 = "                  <tns:Poczta>WARSZAWA</tns:Poczta>";
-            string XML_linia29 = "            </AdresPodmiotu>";
+            string XML_linia18 = "            </tns:IdentyfikatorPodmiotu>";
+            string XML_linia19 = "            <tns:AdresPodmiotu>";
+            string XML_linia20 = "                  <etd:KodKraju>PL</etd:KodKraju>";
+            string XML_linia21 = "                  <etd:Wojewodztwo>mazowieckie</etd:Wojewodztwo>";
+            string XML_linia22 = "                  <etd:Powiat>WARSZAWSKI</etd:Powiat>";
+            string XML_linia23 = "                  <etd:Gmina>CENTRUM</etd:Gmina>";
+            string XML_linia24 = "                  <etd:Ulica>WAWELSKA</etd:Ulica>";
+            string XML_linia25 = "                  <etd:NrDomu>56</etd:NrDomu>";
+            string XML_linia26 = "                  <etd:Miejscowosc>WARSZAWA</etd:Miejscowosc>";
+            string XML_linia27 = "                  <etd:KodPocztowy>00-922</etd:KodPocztowy>";
+            string XML_linia28 = "                  <etd:Poczta>WARSZAWA</etd:Poczta>";
+            string XML_linia29 = "            </tns:AdresPodmiotu>";
             string XML_linia30 = "      </tns:Podmiot1>";
             string XML_linia31 = "      <tns:Magazyn>1</tns:Magazyn>";
 

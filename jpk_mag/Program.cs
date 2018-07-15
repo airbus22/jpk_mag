@@ -2,12 +2,22 @@
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace jpk_mag
 {
     class Program
     {
+        public static string formatowanieDaty(string dawnaData)
+        {
+            var dataWytworz = dawnaData;
+            var dataWytworzeniaManipulations = new StringBuilder(dataWytworz);
+            dataWytworzeniaManipulations.Replace(".", "-", 0, 10);
+            dataWytworz = dataWytworzeniaManipulations.ToString();
+            return dataWytworz;
+        }
+
         static void Main(string[] args)
         {
             string DP1, DK1;
@@ -65,7 +75,7 @@ namespace jpk_mag
             string XML_linia4 = "            <tns:KodFormularza kodSystemowy=\"JPK_MAG (1)\" wersjaSchemy =\"1-0\">JPK_MAG</tns:KodFormularza>";
             string XML_linia5 = "            <tns:WariantFormularza>1</tns:WariantFormularza>";
             string XML_linia6 = "            <tns:CelZlozenia>1</tns:CelZlozenia>";
-            string XML_linia7 = "            <etd:DataWytworzeniaJPK>" + DateTime.Now.ToString().Substring(0, 10) + "T" + DateTime.Now.ToString().Substring(11) + "</etd:DataWytworzeniaJPK>";
+            string XML_linia7 = "            <etd:DataWytworzeniaJPK>" + formatowanieDaty(DateTime.Now.ToString().Substring(0, 10)) + "T" + DateTime.Now.ToString().Substring(11) + "</etd:DataWytworzeniaJPK>";
             string XML_linia8 = "            <etd:DataOd>" + DP1 + "</etd:DataOd>";
             string XML_linia9 = "            <etd:DataDo>" + DK1 + "</etd:DataDo>";
             string XML_linia10 = "            <etd:DomyslnyKodWaluty>PLN</etd:DomyslnyKodWaluty>";
@@ -202,11 +212,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerPZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerPZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataPZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscPZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataOtrzymaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataOtrzymaniaPZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:Dostawca>none</tns:Dostawca>", FileMode.Append);
                         sw.WriteLine();
@@ -221,11 +231,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerPZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerPZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataPZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataPZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscPZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscPZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataOtrzymaniaPZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataOtrzymaniaPZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataOtrzymaniaPZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:Dostawca>none</tns:Dostawca>", FileMode.Append);
                         sw.WriteLine();
@@ -323,11 +333,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerWZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerWZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataWZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscWZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscWZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaWZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("            </tns:WZWWartosc>", FileMode.Append);
                         sw.Flush();
@@ -340,11 +350,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerWZ>" + (array[2].ToString()).Substring(3) + "</tns:NumerWZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataWZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscWZ>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscWZ>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaWZ>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaWZ>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaWZ>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("            </tns:WZWWartosc>", FileMode.Append);
                         sw.Flush();
@@ -440,11 +450,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                        sw.Write("                  <tns:DataRW>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaRW>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("            </tns:RWWartosc>", FileMode.Append);
                         sw.Flush();
@@ -457,11 +467,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerRW>" + (array[2].ToString()).Substring(3) + "</tns:NumerRW>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
+                        sw.Write("                  <tns:DataRW>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataRW>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscRW>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscRW>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaRW>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaRW>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaRW>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("            </tns:RWWartosc>", FileMode.Append);
                         sw.Flush();
@@ -557,11 +567,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerMM>" + (array[2].ToString()).Substring(3) + "</tns:NumerMM>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
+                        sw.Write("                  <tns:DataMM>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscMM>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscMM>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaMM>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:SkadMM>" + (array[2].ToString()).Substring(3) + "</tns:SkadMM>", FileMode.Append);
                         sw.WriteLine();
@@ -578,11 +588,11 @@ namespace jpk_mag
                         sw.WriteLine();
                         sw.Write("                  <tns:NumerMM>" + (array[2].ToString()).Substring(3) + "</tns:NumerMM>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
+                        sw.Write("                  <tns:DataMM>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataMM>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:WartoscMM>" + (array[6].ToString()).Replace(",", ".") + "</tns:WartoscMM>", FileMode.Append);
                         sw.WriteLine();
-                        sw.Write("                  <tns:DataWydaniaMM>" + (array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
+                        sw.Write("                  <tns:DataWydaniaMM>" + formatowanieDaty(array[10].ToString()).Substring(0, 10) + "</tns:DataWydaniaMM>", FileMode.Append);
                         sw.WriteLine();
                         sw.Write("                  <tns:SkadMM>" + (array[2].ToString()).Substring(3) + "</tns:SkadMM>", FileMode.Append);
                         sw.WriteLine();

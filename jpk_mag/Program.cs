@@ -11,11 +11,12 @@ namespace jpk_mag
     {
         public static string formatowanieDaty(string dawnaData)
         {
-            var dataWytworz = dawnaData;
-            var dataWytworzeniaManipulations = new StringBuilder(dataWytworz);
-            dataWytworzeniaManipulations.Replace(".", "-", 0, 10);
-            dataWytworz = dataWytworzeniaManipulations.ToString();
-            return dataWytworz;
+            var dataPrzed = dawnaData;
+            var dataManipulacje = new StringBuilder(dataPrzed);
+            dataManipulacje.Replace(".", "-", 0, 10);
+            dataPrzed = dataManipulacje.ToString();
+            var dataPo = dataPrzed;
+            return dataPo;
         }
 
         static void Main(string[] args)

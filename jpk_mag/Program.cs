@@ -38,7 +38,6 @@ namespace jpk_mag
             string fullpath = @"C:\operacje.xls";
             //string fullpath = @"C:\ksapbefg.mdb";
             string xlsVersion = "Excel 8.0";
-
             DataSet ds = new DataSet();
             DataTable table = new DataTable();
             string strConn = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='{1};HDR=YES'", fullpath, xlsVersion);  //excel
@@ -68,7 +67,6 @@ namespace jpk_mag
 
             string lokalizacjaPlikuXML = @"C:\TEMP\jpk_mag.xml";
             FileInfo InformacjaOPliku = new FileInfo("C:\\TEMP\\jpk_mag.xml");
-
             string XML_linia1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             string XML_linia2 = "<tns:JPK xmlns:etd=\"http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2016/01/25/eD/DefinicjeTypy/\" xmlns:kck=\"http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2013/05/23/eD/KodyCECHKRAJOW/\" xmlns:tns=\"http://jpk.mf.gov.pl/wzor/2016/03/09/03093/\" > ";
             string XML_linia3 = "      <tns:Naglowek>";
@@ -110,7 +108,6 @@ namespace jpk_mag
             {
                 Console.WriteLine("Generowanie nagłówka pliku JPK rozpoczęte");
                 StreamWriter plikXML = new StreamWriter(@"C:\TEMP\jpk_mag.xml", true);
-
                 plikXML.WriteLine(XML_linia1);
                 plikXML.WriteLine(XML_linia2);
                 plikXML.WriteLine(XML_linia3);

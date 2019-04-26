@@ -17,7 +17,6 @@ namespace jpk_mag
             data = dataManipulacje.ToString();
             return data;
         }
-
         static void Main(string[] args)
         {
             string DP1, DK1;
@@ -100,9 +99,7 @@ namespace jpk_mag
             string XML_linia31 = "      <tns:Magazyn>1</tns:Magazyn>";
 
             if (File.Exists(lokalizacjaPlikuXML))
-            {
                 File.Delete(lokalizacjaPlikuXML);
-            }
 
             try
             {

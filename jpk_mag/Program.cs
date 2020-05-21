@@ -17,7 +17,7 @@ namespace jpk_mag
             data = dataManipulacje.ToString();
             return data;
         }
-        static void Main(string[] args)
+        static void Main()
         {
             string DP1, DK1;
             string DP2 = " 00:00:00";

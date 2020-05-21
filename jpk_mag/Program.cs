@@ -150,8 +150,7 @@ namespace jpk_mag
             }
 
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
-            StreamWriter sw;
-            sw = new StreamWriter(lokalizacjaPlikuXML, true);
+            StreamWriter sw = new StreamWriter(lokalizacjaPlikuXML, true);
             DataTable dt = ds.Tables[0];
 
             #region zliczanie_dokumentow_magazyn

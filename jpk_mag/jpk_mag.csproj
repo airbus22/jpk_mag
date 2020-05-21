@@ -47,10 +47,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>95B08E2C05F20519ACEF09BD37855979206D2A0B</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>9F20F5450ED6B9CBBED428EC0FEE720B2964D115</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>jpk_mag_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>jpk_mag_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>

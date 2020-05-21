@@ -65,7 +65,6 @@ namespace jpk_mag
             }
 
             string lokalizacjaPlikuXML = @"C:\TEMP\jpk_mag.xml";
-            FileInfo InformacjaOPliku = new FileInfo("C:\\TEMP\\jpk_mag.xml");
             string XML_linia1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             string XML_linia2 = "<tns:JPK xmlns:etd=\"http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2016/01/25/eD/DefinicjeTypy/\" xmlns:kck=\"http://crd.gov.pl/xml/schematy/dziedzinowe/mf/2013/05/23/eD/KodyCECHKRAJOW/\" xmlns:tns=\"http://jpk.mf.gov.pl/wzor/2016/03/09/03093/\" > ";
             string XML_linia3 = "      <tns:Naglowek>";
@@ -151,7 +150,7 @@ namespace jpk_mag
             }
 
             Console.WriteLine("Generowanie danych pliku JPK rozpoczęte");
-            StreamWriter sw = null;
+            StreamWriter sw;
             sw = new StreamWriter(lokalizacjaPlikuXML, true);
             DataTable dt = ds.Tables[0];
 
@@ -282,7 +281,7 @@ namespace jpk_mag
                     }
                     sw.WriteLine();
                 }
-                string SumaPZ_ciag = "";
+                string SumaPZ_ciag;
                 foreach (DataRow row in dt.Rows)
                 {
                     object[] array = row.ItemArray;
@@ -290,7 +289,7 @@ namespace jpk_mag
                     if (array[2].ToString().Contains("PZ") || array[2].ToString().Contains("Pz") || array[2].ToString().Contains("pZ") || array[2].ToString().Contains("pz"))
                     {
                         SumaPZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                        sumaPZ = sumaPZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+                        sumaPZ += Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString());
                         liczbaPZ_PZWartosc++;
                     }
                 }
@@ -399,7 +398,7 @@ namespace jpk_mag
                     }
                     sw.WriteLine();
                 }
-                string SumaWZ_ciag = "";
+                string SumaWZ_ciag;
                 foreach (DataRow row in dt.Rows)
                 {
                     object[] array = row.ItemArray;
@@ -407,7 +406,7 @@ namespace jpk_mag
                     if (array[2].ToString().Contains("WZ") || array[2].ToString().Contains("Wz") || array[2].ToString().Contains("wZ") || array[2].ToString().Contains("wz"))
                     {
                         SumaWZ_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                        sumaWZ = sumaWZ + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+                        sumaWZ += Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString());
                         liczbaWZ_WZWartosc++;
                     }
                 }
@@ -516,7 +515,7 @@ namespace jpk_mag
                     }
                     sw.WriteLine();
                 }
-                string SumaRW_ciag = "";
+                string SumaRW_ciag;
                 foreach (DataRow row in dt.Rows)
                 {
                     object[] array = row.ItemArray;
@@ -524,7 +523,7 @@ namespace jpk_mag
                     if (array[2].ToString().Contains("RW") || array[2].ToString().Contains("Rw") || array[2].ToString().Contains("rW") || array[2].ToString().Contains("rw"))
                     {
                         SumaRW_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                        sumaRW = sumaRW + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+                        sumaRW += Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString());
                         liczbaRW_RWWartosc++;
                     }
                 }
@@ -641,7 +640,7 @@ namespace jpk_mag
                     }
                     sw.WriteLine();
                 }
-                string SumaMM_ciag = "";
+                string SumaMM_ciag;
                 foreach (DataRow row in dt.Rows)
                 {
                     object[] array = row.ItemArray;
@@ -649,7 +648,7 @@ namespace jpk_mag
                     if (array[2].ToString().Contains("MM") || array[2].ToString().Contains("Mm") || array[2].ToString().Contains("mM") || array[2].ToString().Contains("mm"))
                     {
                         SumaMM_ciag = "" + Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()) + "";
-                        sumaMM = sumaMM + (Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString()));
+                        sumaMM += Double.Parse(array[7].ToString()) * Convert.ToDouble(array[6].ToString());
                         liczbaMM_MMWartosc++;
                     }
                 }
